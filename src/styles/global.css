@@ -74,6 +74,7 @@
 html {
 	scroll-behavior: smooth;
 	scroll-padding-top: 5rem;
+	background-color: var(--bg-primary);
 }
 
 body {
@@ -333,10 +334,17 @@ input {
 }
 
 /* ===== View Transition Theme Toggle ===== */
+/* Evitamos el parpadeo negro forzando opacidad y eliminando mezclas de capas */
 ::view-transition-old(root),
 ::view-transition-new(root) {
 	animation: none;
 	mix-blend-mode: normal;
+	display: block;
+	opacity: 1;
+}
+
+::view-transition-group(root) {
+	animation: none;
 }
 
 /* El tema oscuro siempre debe estar encima durante la transición para que el recorte sea visible */
