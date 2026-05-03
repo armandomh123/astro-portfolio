@@ -90,6 +90,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	overflow-x: hidden;
+	transition: background-color var(--transition-base), color var(--transition-base);
 }
 
 /* ===== Typography ===== */
@@ -331,44 +332,6 @@ input {
 	body {
 		font-size: 15px;
 	}
-}
 
-/* ===== View Transition Theme Toggle ===== */
-/* Evitamos el parpadeo negro forzando opacidad y eliminando mezclas de capas */
-::view-transition-old(root),
-::view-transition-new(root) {
-	animation: none;
-	mix-blend-mode: normal;
-	display: block;
-	opacity: 1;
-}
-
-::view-transition-group(root) {
-	animation: none;
-}
-
-/* El tema oscuro siempre debe estar encima durante la transición para que el recorte sea visible */
-::view-transition-old(root) {
-	z-index: 1;
-}
-::view-transition-new(root) {
-	z-index: 9999;
-}
-
-/* Cuando pasamos de oscuro a claro, el "viejo" (oscuro) debe estar arriba */
-[data-theme='light']::view-transition-old(root) {
-	z-index: 9999;
-}
-[data-theme='light']::view-transition-new(root) {
-	z-index: 1;
-}
-
-/* Cuando pasamos de claro a oscuro, el "nuevo" (oscuro) debe estar arriba */
-[data-theme='dark']::view-transition-old(root) {
-	z-index: 1;
-}
-[data-theme='dark']::view-transition-new(root) {
-	z-index: 9999;
-}
 
 
