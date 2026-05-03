@@ -75,6 +75,7 @@ html {
 	scroll-behavior: smooth;
 	scroll-padding-top: 5rem;
 	background-color: var(--bg-primary);
+	transition: background-color var(--transition-base), color var(--transition-base);
 }
 
 body {
