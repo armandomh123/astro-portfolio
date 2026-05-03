@@ -15,67 +15,73 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<BaseHead title={title} description={description} />
 		<style>
 			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
+				padding-top: 8rem;
+				padding-bottom: 5rem;
 			}
 			.hero-image {
 				width: 100%;
+				max-width: 1000px;
+				margin: 0 auto 3rem;
 			}
 			.hero-image img {
 				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
+				width: 100%;
+				border-radius: var(--radius-xl);
+				box-shadow: var(--shadow-lg);
+				border: 1px solid var(--border-color);
 			}
 			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
+				max-width: 720px;
 				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
 			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
+			.post-header {
 				text-align: center;
-				line-height: 1;
+				margin-bottom: 3rem;
 			}
 			.title h1 {
-				margin: 0 0 0.5em 0;
+				font-size: clamp(2rem, 5vw, 3.5rem);
+				margin-bottom: 1rem;
 			}
 			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
+				margin-bottom: 1rem;
+				color: var(--text-muted);
+				font-weight: 500;
 			}
 			.last-updated-on {
 				font-style: italic;
+				font-size: 0.9rem;
+				margin-top: 0.5rem;
+			}
+			hr {
+				margin: 3rem 0;
+				border-color: var(--border-color);
 			}
 		</style>
 	</head>
 
-	<body>
+	<body class="blog-page">
 		<Header />
-		<main>
-			<article>
+		<main class="container">
+			<article class="reveal visible">
+				<div class="post-header">
+					<div class="date">
+						<FormattedDate date={pubDate} />
+						{
+							updatedDate && (
+								<div class="last-updated-on">
+									Actualizado el <FormattedDate date={updatedDate} />
+								</div>
+							)
+						}
+					</div>
+					<div class="title">
+						<h1>{title}</h1>
+					</div>
+				</div>
 				<div class="hero-image">
 					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
 				</div>
 				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
 					<slot />
 				</div>
 			</article>
