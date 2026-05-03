@@ -19,24 +19,23 @@
 
 <style>
     #theme-toggle {
-        background: var(--bg-surface);
-        border: 1px solid var(--border-color);
-        padding: 0.5rem;
-        border-radius: var(--radius-md);
+        background: transparent;
+        border: none;
+        padding: 0;
         cursor: pointer;
-        color: var(--text-primary);
+        color: var(--text-muted);
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all var(--transition-fast);
+        transition: color var(--transition-fast);
+        outline: none;
     }
     #theme-toggle:hover {
-        background: var(--bg-surface-hover);
-        border-color: var(--accent-start);
+        color: var(--accent-start);
     }
     svg {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
     }
     #sun-icon { display: none; }
     #moon-icon { display: block; }

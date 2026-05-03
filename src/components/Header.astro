@@ -39,7 +39,7 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from '../consts';
 		left: 0;
 		width: 100%;
 		z-index: 100;
-		background: rgba(9, 9, 11, 0.8);
+		background: rgba(var(--header-bg), 0.8);
 		backdrop-filter: blur(12px);
 		border-bottom: 1px solid var(--border-color);
 		height: 5rem;
@@ -64,13 +64,18 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from '../consts';
 	}
 	.social-links {
 		display: flex;
-		gap: 1rem;
+		align-items: center;
+		gap: 1.25rem;
 	}
-	.social-links a {
+	.social-links a,
+	.social-links :global(button) {
 		color: var(--text-muted);
 		transition: color var(--transition-fast);
+		display: flex;
+		align-items: center;
 	}
-	.social-links a:hover {
+	.social-links a:hover,
+	.social-links :global(button:hover) {
 		color: var(--accent-start);
 	}
 	@media (max-width: 720px) {
