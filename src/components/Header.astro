@@ -1,5 +1,5 @@
----
 import HeaderLink from './HeaderLink.astro';
+import ThemeIcon from './ThemeIcon.astro';
 import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from '../consts';
 ---
 
@@ -14,6 +14,7 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from '../consts';
 			))}
 		</div>
 		<div class="social-links">
+			<ThemeIcon />
 			<a href={SOCIAL_LINKS.github} target="_blank">
 				<span class="sr-only">GitHub</span>
 				<svg viewBox="0 0 16 16" aria-hidden="true" width="24" height="24">
