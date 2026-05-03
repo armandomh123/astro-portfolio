@@ -339,6 +339,7 @@ input {
 	mix-blend-mode: normal;
 }
 
+/* El tema oscuro siempre debe estar encima durante la transición para que el recorte sea visible */
 ::view-transition-old(root) {
 	z-index: 1;
 }
@@ -346,10 +347,20 @@ input {
 	z-index: 9999;
 }
 
-[data-theme='dark']::view-transition-old(root) {
+/* Cuando pasamos de oscuro a claro, el "viejo" (oscuro) debe estar arriba */
+[data-theme='light']::view-transition-old(root) {
 	z-index: 9999;
 }
-[data-theme='dark']::view-transition-new(root) {
+[data-theme='light']::view-transition-new(root) {
 	z-index: 1;
 }
+
+/* Cuando pasamos de claro a oscuro, el "nuevo" (oscuro) debe estar arriba */
+[data-theme='dark']::view-transition-old(root) {
+	z-index: 1;
+}
+[data-theme='dark']::view-transition-new(root) {
+	z-index: 9999;
+}
+
 
