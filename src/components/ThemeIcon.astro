@@ -47,8 +47,9 @@
 <script>
     const toggle = document.getElementById('theme-toggle');
     const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-            return localStorage.getItem('theme');
+        if (typeof localStorage !== 'undefined') {
+            const storedTheme = localStorage.getItem('theme');
+            if (storedTheme) return storedTheme;
         }
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             return 'dark';
@@ -73,5 +74,7 @@
         localStorage.setItem('theme', newTheme);
     };
 
-    toggle.addEventListener('click', handleToggleClick);
+    if (toggle) {
+        toggle.addEventListener('click', handleToggleClick);
+    }
 </script>
