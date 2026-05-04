@@ -120,36 +120,42 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 
 		<style>
 			main {
-				margin-top: 5rem;
+				margin-top: var(--s-16);
 			}
 			.hero-description {
-				font-size: 1.25rem;
+				font-size: clamp(1rem, 4vw, 1.25rem);
 				max-width: 600px;
-				margin-bottom: 2.5rem;
+				margin-bottom: var(--s-8);
+				color: var(--text-secondary);
+				line-height: 1.6;
 			}
 			.hero-actions {
 				display: flex;
-				gap: 1rem;
+				gap: var(--s-4);
+				flex-wrap: wrap;
 			}
 			
 			/* Buttons */
 			.btn {
 				display: inline-flex;
 				align-items: center;
-				padding: 0.8rem 1.8rem;
+				justify-content: center;
+				padding: var(--s-3) var(--s-8);
 				border-radius: var(--radius-md);
 				font-weight: 600;
 				transition: all var(--transition-base);
 				cursor: pointer;
+				text-decoration: none;
+				min-width: 160px;
 			}
 			.btn-primary {
 				background: var(--accent-gradient);
 				color: white;
-				box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+				box-shadow: 0 4px 20px oklch(0.72 0.17 153 / 0.25);
 			}
 			.btn-primary:hover {
 				transform: translateY(-2px);
-				box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+				box-shadow: 0 8px 30px oklch(0.72 0.17 153 / 0.35);
 				color: white;
 			}
 			.btn-secondary {
@@ -160,104 +166,116 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 			.btn-secondary:hover {
 				background: var(--bg-surface-hover);
 				border-color: var(--border-color-hover);
+				transform: translateY(-2px);
 			}
 
 			/* About */
 			.about-grid {
 				display: grid;
 				grid-template-columns: 1.5fr 1fr;
-				gap: 4rem;
-				margin-top: 2rem;
+				gap: var(--s-12);
+				margin-top: var(--s-8);
 			}
 			.skill-tags {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 0.75rem;
-				margin-top: 1rem;
+				gap: var(--s-3);
+				margin-top: var(--s-4);
 			}
 			.skill-tag {
-				padding: 0.4rem 1rem;
+				padding: var(--s-2) var(--s-4);
 				background: var(--bg-surface);
 				border: 1px solid var(--border-color);
 				border-radius: 100px;
-				font-size: 0.9rem;
+				font-size: 0.85rem;
 				color: var(--text-secondary);
+				transition: all var(--transition-fast);
+			}
+			.skill-tag:hover {
+				border-color: var(--accent-start);
+				color: var(--accent-start);
+				background: var(--accent-glow);
 			}
 
 			/* Projects */
 			.projects-grid {
 				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-				gap: 2rem;
-				margin-top: 3rem;
+				grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+				gap: var(--s-8);
+				margin-top: var(--s-12);
 			}
 			.project-card {
-				overflow: hidden;
-				display: flex;
-				flex-direction: column;
+				height: 100%;
 			}
 			.project-image {
-				height: 200px;
+				height: 220px;
 				width: 100%;
-				opacity: 0.8;
-				transition: opacity var(--transition-base);
+				opacity: 0.9;
+				transition: all var(--transition-base);
+				position: relative;
 			}
 			.project-card:hover .project-image {
 				opacity: 1;
+				transform: scale(1.02);
 			}
 			.project-content {
-				padding: 1.5rem;
+				padding: var(--s-6);
 				display: flex;
 				flex-direction: column;
 				flex-grow: 1;
 			}
-			.project-content h3 {
-				margin-bottom: 0.75rem;
-			}
 			.project-tags {
 				display: flex;
-				gap: 0.5rem;
-				margin: 1rem 0 1.5rem;
+				gap: var(--s-2);
+				margin: var(--s-4) 0;
 				flex-wrap: wrap;
 			}
 			.project-tags span {
-				font-size: 0.75rem;
-				padding: 0.2rem 0.6rem;
+				font-size: 0.7rem;
+				padding: var(--s-1) var(--s-3);
 				background: var(--bg-elevated);
 				color: var(--accent-start);
-				border-radius: 4px;
-				font-weight: 600;
+				border-radius: 6px;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
 			}
 			.project-link {
 				margin-top: auto;
-				font-weight: 600;
+				font-weight: 700;
 				font-size: 0.9rem;
+				display: inline-flex;
+				align-items: center;
+				gap: var(--s-1);
 			}
 
 			/* Contact */
 			.contact-card {
-				margin-top: 3rem;
-				padding: 3rem;
+				margin-top: var(--s-12);
+				padding: var(--s-12) var(--s-6);
 				text-align: center;
-				max-width: 700px;
+				max-width: 800px;
 				margin-left: auto;
 				margin-right: auto;
 			}
 			.contact-card h3 {
-				font-size: 2rem;
-				margin-bottom: 1rem;
-			}
-			.contact-card p {
-				margin-bottom: 2rem;
+				font-size: clamp(1.5rem, 6vw, 2.5rem);
+				margin-bottom: var(--s-4);
 			}
 
 			@media (max-width: 768px) {
 				.about-grid {
 					grid-template-columns: 1fr;
-					gap: 2rem;
+					gap: var(--s-8);
 				}
-				.contact-card {
-					padding: 2rem;
+				.hero-actions {
+					flex-direction: column;
+				}
+				.btn {
+					width: 100%;
+				}
+				.section {
+					padding: var(--s-12) 0;
 				}
 			}
 		</style>

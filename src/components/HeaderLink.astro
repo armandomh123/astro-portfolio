@@ -17,12 +17,12 @@ const isActive = href === pathname || (href !== '/' && pathname.startsWith(href 
 	a {
 		display: inline-block;
 		text-decoration: none;
-		padding: 0.5rem 1rem;
+		padding: var(--s-2) var(--s-4);
 		color: var(--text-secondary);
-		font-weight: 500;
-		font-size: 0.95rem;
+		font-weight: 600;
+		font-size: 0.9rem;
 		transition: all var(--transition-base);
-		border-radius: var(--radius-sm);
+		border-radius: var(--radius-md);
 	}
 	a:hover {
 		color: var(--text-primary);
