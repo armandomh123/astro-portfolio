@@ -67,32 +67,78 @@
 
 <script>
     const toggle = document.getElementById('theme-toggle');
-    const theme = (() => {
-        if (typeof localStorage !== 'undefined') {
-            const storedTheme = localStorage.getItem('theme');
-            if (storedTheme) return storedTheme;
-        }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            return 'dark';
-        }
+    const root = document.documentElement;
+    const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let isThemeTransitionRunning = false;
+
+    const getStoredTheme = () => {
+        if (typeof localStorage === 'undefined') return null;
+        return localStorage.getItem('theme');
+    };
+
+    const getPreferredTheme = () => {
+        const storedTheme = getStoredTheme();
+        if (storedTheme) return storedTheme;
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
         return 'light';
+    };
+
+    const applyTheme = (newTheme) => {
+        root.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    };
+
+    const theme = (() => {
+        return getPreferredTheme();
     })();
 
-    if (theme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-    } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    }
+    applyTheme(theme);
 
-    window.localStorage.setItem('theme', theme);
+    const handleToggleClick = async (event) => {
+        if (isThemeTransitionRunning) return;
 
-    const handleToggleClick = () => {
-        const element = document.documentElement;
-        const isDark = element.getAttribute('data-theme') === 'dark';
+        const isDark = root.getAttribute('data-theme') === 'dark';
         const newTheme = isDark ? 'light' : 'dark';
 
-        element.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
+        if (!document.startViewTransition || reduceMotionQuery.matches) {
+            applyTheme(newTheme);
+            return;
+        }
+
+        isThemeTransitionRunning = true;
+        root.classList.add('theme-transitioning');
+
+        const x = event.clientX;
+        const y = event.clientY;
+        const endRadius = Math.hypot(
+            Math.max(x, window.innerWidth - x),
+            Math.max(y, window.innerHeight - y)
+        );
+
+        const transition = document.startViewTransition(() => {
+            applyTheme(newTheme);
+        });
+
+        try {
+            await transition.ready;
+            root.animate(
+                {
+                    clipPath: [
+                        `circle(0px at ${x}px ${y}px)`,
+                        `circle(${endRadius}px at ${x}px ${y}px)`,
+                    ],
+                },
+                {
+                    duration: 700,
+                    easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+                    pseudoElement: '::view-transition-new(root)',
+                }
+            );
+            await transition.finished;
+        } finally {
+            root.classList.remove('theme-transitioning');
+            isThemeTransitionRunning = false;
+        }
     };
 
     if (toggle) {

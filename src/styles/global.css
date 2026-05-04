@@ -113,6 +113,34 @@ body {
 	transition: var(--theme-transition);
 }
 
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+	transition: none !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+	z-index: 0;
+}
+
+::view-transition-new(root) {
+	z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+	}
+}
+
 /* ===== Typography ===== */
 h1, h2, h3, h4 {
 	color: var(--text-primary);
@@ -352,5 +380,3 @@ input {
 		display: block !important;
 	}
 }
-
-
