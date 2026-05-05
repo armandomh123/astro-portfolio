@@ -31,6 +31,28 @@
 	--transition-fast: 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
 	--transition-base: 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
 	--transition-slow: 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+	--theme-reveal-size: 220vmax;
+	--theme-reveal-x: 50vw;
+	--theme-reveal-y: 50vh;
+	--theme-reveal-duration: 560ms;
+	--theme-reveal-ease: linear(
+		0 0%,
+		0.1684 2.66%,
+		0.3165 5.49%,
+		0.446 8.52%,
+		0.5581 11.78%,
+		0.6535 15.29%,
+		0.7341 19.11%,
+		0.8011 23.3%,
+		0.8557 27.93%,
+		0.8962 32.68%,
+		0.9283 38.01%,
+		0.9529 44.08%,
+		0.9711 51.14%,
+		0.9833 59.06%,
+		0.9915 68.74%,
+		1 100%
+	);
 	--theme-transition:
 		background-color var(--transition-base),
 		color var(--transition-base),
@@ -126,12 +148,37 @@ html.theme-transitioning *::after {
 	mix-blend-mode: normal;
 }
 
+::view-transition-group(root) {
+	animation-timing-function: var(--theme-reveal-ease);
+}
+
 ::view-transition-old(root) {
+	animation: none;
 	z-index: 0;
 }
 
 ::view-transition-new(root) {
+	animation: theme-reveal var(--theme-reveal-duration) var(--theme-reveal-ease) both;
+	-webkit-mask-image: radial-gradient(circle, black 58%, transparent 64%);
+	mask-image: radial-gradient(circle, black 58%, transparent 64%);
+	-webkit-mask-position:
+		calc(50% + var(--theme-reveal-x) - 50vw)
+		calc(50% + var(--theme-reveal-y) - 50vh);
+	mask-position:
+		calc(50% + var(--theme-reveal-x) - 50vw)
+		calc(50% + var(--theme-reveal-y) - 50vh);
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: 0 0;
+	mask-size: 0 0;
 	z-index: 1;
+}
+
+@keyframes theme-reveal {
+	to {
+		-webkit-mask-size: var(--theme-reveal-size) var(--theme-reveal-size);
+		mask-size: var(--theme-reveal-size) var(--theme-reveal-size);
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
