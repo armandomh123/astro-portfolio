@@ -249,28 +249,20 @@ a {
 	display: inline-block;
 }
 
-/* ===== Glass Card ===== */
-.glass-card {
+/* ===== Surface Card ===== */
+.surface-card {
 	background: var(--bg-surface);
 	border: 1px solid var(--border-color);
-	border-radius: var(--radius-lg);
+	border-radius: var(--radius-md);
 	transition: all var(--transition-base);
 	position: relative;
 	overflow: hidden;
 }
 
-.glass-card::before {
-	content: '';
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(135deg, oklch(1 0 0 / 0.05), transparent);
-	pointer-events: none;
-}
-
-.glass-card:hover {
+.surface-card:hover {
 	border-color: var(--border-color-hover);
-	transform: translateY(-4px) scale(1.01);
-	box-shadow: var(--shadow-glow);
+	background: var(--bg-surface-hover);
+	transform: translateY(-2px);
 }
 
 /* ===== Scroll Animations ===== */

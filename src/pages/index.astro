@@ -66,7 +66,7 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 					
 					<div class="projects-grid">
 						{PROJECTS.map(project => (
-							<div class="project-card glass-card">
+							<div class="project-card surface-card">
 								<div class="project-image" style={`background: ${project.gradient}`}></div>
 								<div class="project-content">
 									<h3>{project.title}</h3>
@@ -89,7 +89,7 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 					<h2 class="section-title">¿Tienes un proyecto en mente?</h2>
 					<p class="section-subtitle">Estoy disponible para nuevos proyectos o colaboraciones.</p>
 					
-					<div class="contact-card glass-card">
+					<div class="contact-card surface-card">
 						<h3>Hablemos</h3>
 						<p>No dudes en enviarme un mensaje si quieres charlar sobre tecnología o nuevas oportunidades.</p>
 						<a href="mailto:contacto@example.com" class="btn btn-primary">Enviar Email</a>
@@ -151,11 +151,11 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 			.btn-primary {
 				background: var(--accent-gradient);
 				color: white;
-				box-shadow: 0 4px 20px oklch(0.72 0.17 153 / 0.25);
+				box-shadow: 0 1px 2px oklch(0.12 0.01 250 / 0.18);
 			}
 			.btn-primary:hover {
-				transform: translateY(-2px);
-				box-shadow: 0 8px 30px oklch(0.72 0.17 153 / 0.35);
+				transform: translateY(-1px);
+				box-shadow: 0 6px 16px oklch(0.12 0.01 250 / 0.2);
 				color: white;
 			}
 			.btn-secondary {
@@ -166,7 +166,7 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 			.btn-secondary:hover {
 				background: var(--bg-surface-hover);
 				border-color: var(--border-color-hover);
-				transform: translateY(-2px);
+				transform: translateY(-1px);
 			}
 
 			/* About */
@@ -192,9 +192,9 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 				transition: all var(--transition-fast);
 			}
 			.skill-tag:hover {
-				border-color: var(--accent-start);
-				color: var(--accent-start);
-				background: var(--accent-glow);
+				border-color: var(--border-color-hover);
+				color: var(--text-primary);
+				background: var(--bg-surface-hover);
 			}
 
 			/* Projects */
@@ -216,7 +216,6 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 			}
 			.project-card:hover .project-image {
 				opacity: 1;
-				transform: scale(1.02);
 			}
 			.project-content {
 				padding: var(--s-6);
@@ -233,8 +232,9 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 			.project-tags span {
 				font-size: 0.7rem;
 				padding: var(--s-1) var(--s-3);
-				background: var(--bg-elevated);
-				color: var(--accent-start);
+				background: var(--bg-secondary);
+				border: 1px solid var(--border-color);
+				color: var(--text-muted);
 				border-radius: 6px;
 				font-weight: 700;
 				text-transform: uppercase;
