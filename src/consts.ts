@@ -2,7 +2,7 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const NAME = "Jesús Manjarrez";
-export const SITE_TITLE = "Jesús Manjarrez — Portfolio";
+export const SITE_TITLE = "Jesús Manjarrez";
 export const SITE_DESCRIPTION =
 	"Desarrollador web apasionado por crear experiencias digitales modernas y funcionales.";
 
