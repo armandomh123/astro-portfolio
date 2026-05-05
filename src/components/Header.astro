@@ -121,12 +121,21 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from '../consts';
 		display: flex;
 		align-items: center;
 		gap: var(--s-2);
-		margin-left: var(--s-4);
 	}
 	.social-links a {
 		color: var(--text-muted);
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex: 0 0 40px;
+		line-height: 0;
 		transition: all var(--transition-base);
-		padding: var(--s-1);
+		padding: 0;
+	}
+	.social-links svg {
+		display: block;
 	}
 	.social-links a:hover {
 		color: var(--accent-start);
