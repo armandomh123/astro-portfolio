@@ -31,7 +31,6 @@
 	--transition-fast: 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
 	--transition-base: 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
 	--transition-slow: 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
-	--theme-reveal-size: 220vmax;
 	--theme-reveal-x: 50vw;
 	--theme-reveal-y: 50vh;
 	--theme-reveal-duration: 560ms;
@@ -159,25 +158,13 @@ html.theme-transitioning *::after {
 
 ::view-transition-new(root) {
 	animation: theme-reveal var(--theme-reveal-duration) var(--theme-reveal-ease) both;
-	-webkit-mask-image: radial-gradient(circle, black 58%, transparent 64%);
-	mask-image: radial-gradient(circle, black 58%, transparent 64%);
-	-webkit-mask-position:
-		calc(50% + var(--theme-reveal-x) - 50vw)
-		calc(50% + var(--theme-reveal-y) - 50vh);
-	mask-position:
-		calc(50% + var(--theme-reveal-x) - 50vw)
-		calc(50% + var(--theme-reveal-y) - 50vh);
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
-	-webkit-mask-size: 0 0;
-	mask-size: 0 0;
+	clip-path: circle(0% at var(--theme-reveal-x) var(--theme-reveal-y));
 	z-index: 1;
 }
 
 @keyframes theme-reveal {
 	to {
-		-webkit-mask-size: var(--theme-reveal-size) var(--theme-reveal-size);
-		mask-size: var(--theme-reveal-size) var(--theme-reveal-size);
+		clip-path: circle(150% at var(--theme-reveal-x) var(--theme-reveal-y));
 	}
 }
 
