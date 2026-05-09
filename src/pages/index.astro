@@ -3,7 +3,13 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import BackgroundVectors from "../components/BackgroundVectors.astro";
-import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts";
+import {
+	SITE_TITLE,
+	SITE_DESCRIPTION,
+	PROJECTS,
+	SKILLS,
+	NAME,
+} from "../consts";
 ---
 
 <!doctype html>
@@ -14,45 +20,66 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 	<body>
 		<BackgroundVectors />
 		<Header />
-		
+
 		<main>
 			<!-- Hero Section -->
 			<section id="hero" class="section container">
 				<div class="reveal">
-					<span class="section-label">Bienvenido</span>
 					<h1>Hola, soy <span class="gradient-text">{NAME}</span></h1>
 					<p class="hero-description">
-						Desarrollador Full Stack enfocado en crear productos digitales 
-						con interfaces intuitivas y código escalable.
+						Ingeniero en Desarrollo y Gestión de software
 					</p>
 					<div class="hero-actions">
-						<a href="#projects" class="btn btn-primary">Ver proyectos</a>
-						<a href="#contact" class="btn btn-secondary">Contactar</a>
+						<a href="#projects" class="btn btn-primary"
+							>Ver proyectos</a
+						>
+						<a href="#contact" class="btn btn-secondary"
+							>Contactar</a
+						>
 					</div>
 				</div>
+				<a
+					href="#about"
+					class="scroll-indicator"
+					aria-label="Desplazarse hacia abajo"
+				>
+					<div class="mouse">
+						<div class="wheel"></div>
+					</div>
+					<div class="arrow">
+						<span></span>
+						<span></span>
+					</div>
+				</a>
 			</section>
 
 			<!-- About Section -->
 			<section id="about" class="section container">
 				<div class="reveal">
-					<span class="section-label">Sobre mí</span>
-					<h2 class="section-title">Pasión por la tecnología</h2>
 					<div class="about-grid">
 						<div class="about-text">
+							<h2 class="section-title">Sobre mí</h2>
 							<p>
-								Llevo años explorando el ecosistema web, desde el diseño de UI 
-								hasta la arquitectura de bases de datos. Me apasiona resolver 
-								problemas complejos mediante soluciones simples y elegantes.
+								Llevo años explorando el ecosistema web, desde
+								el diseño de UI hasta la arquitectura de bases
+								de datos. Me apasiona resolver problemas
+								complejos mediante soluciones simples y
+								elegantes.
 							</p>
 							<p>
-								Mi enfoque se centra en el rendimiento, la accesibilidad y la 
-								experiencia del usuario final.
+								Mi enfoque se centra en el rendimiento, la
+								accesibilidad y la experiencia del usuario
+								final.
 							</p>
 						</div>
 						<div class="about-skills">
-							<h3>Skills</h3>
+							<h3 class="section-title">Skills</h3>
 							<div class="skill-tags">
-								{SKILLS.map(skill => <span class="skill-tag">{skill}</span>)}
+								{
+									SKILLS.map((skill) => (
+										<span class="skill-tag">{skill}</span>
+									))
+								}
 							</div>
 						</div>
 					</div>
@@ -62,24 +89,38 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 			<!-- Projects Section -->
 			<section id="projects" class="section container">
 				<div class="reveal">
-					<span class="section-label">Proyectos</span>
 					<h2 class="section-title">Trabajo reciente</h2>
-					<p class="section-subtitle">Una selección de proyectos en los que he trabajado últimamente.</p>
-					
+					<p class="section-subtitle">
+						Una selección de proyectos en los que he trabajado
+						últimamente.
+					</p>
+
 					<div class="projects-grid">
-						{PROJECTS.map(project => (
-							<div class="project-card surface-card">
-								<div class="project-image" style={`background: ${project.gradient}`}></div>
-								<div class="project-content">
-									<h3>{project.title}</h3>
-									<p>{project.description}</p>
-									<div class="project-tags">
-										{project.tags.map(tag => <span>{tag}</span>)}
+						{
+							PROJECTS.map((project) => (
+								<div class="project-card surface-card">
+									<div
+										class="project-image"
+										style={`background: ${project.gradient}`}
+									/>
+									<div class="project-content">
+										<h3>{project.title}</h3>
+										<p>{project.description}</p>
+										<div class="project-tags">
+											{project.tags.map((tag) => (
+												<span>{tag}</span>
+											))}
+										</div>
+										<a
+											href={project.link}
+											class="project-link"
+										>
+											Ver más →
+										</a>
 									</div>
-									<a href={project.link} class="project-link">Ver más →</a>
 								</div>
-							</div>
-						))}
+							))
+						}
 					</div>
 				</div>
 			</section>
@@ -87,14 +128,21 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 			<!-- Contact Section -->
 			<section id="contact" class="section container">
 				<div class="reveal">
-					<span class="section-label">Contacto</span>
 					<h2 class="section-title">¿Tienes un proyecto en mente?</h2>
-					<p class="section-subtitle">Estoy disponible para nuevos proyectos o colaboraciones.</p>
-					
+					<p class="section-subtitle">
+						Estoy disponible para nuevos proyectos o colaboraciones.
+					</p>
+
 					<div class="contact-card surface-card">
 						<h3>Hablemos</h3>
-						<p>No dudes en enviarme un mensaje si quieres charlar sobre tecnología o nuevas oportunidades.</p>
-						<a href="mailto:contacto@example.com" class="btn btn-primary">Enviar Email</a>
+						<p>
+							No dudes en enviarme un mensaje si quieres charlar
+							sobre tecnología o nuevas oportunidades.
+						</p>
+						<a
+							href="mailto:contacto@example.com"
+							class="btn btn-primary">Enviar Email</a
+						>
 					</div>
 				</div>
 			</section>
@@ -106,23 +154,40 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 			// Scroll Reveal Animation
 			const observerOptions = {
 				threshold: 0.1,
-				rootMargin: "0px 0px -50px 0px"
+				rootMargin: "0px 0px -50px 0px",
 			};
 
 			const observer = new IntersectionObserver((entries) => {
-				entries.forEach(entry => {
+				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						entry.target.classList.add('visible');
+						entry.target.classList.add("visible");
 					}
 				});
 			}, observerOptions);
 
-			document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+			document
+				.querySelectorAll(".reveal")
+				.forEach((el) => observer.observe(el));
 		</script>
 
 		<style>
 			main {
 				margin-top: var(--s-16);
+			}
+			#hero {
+				min-height: calc(100vh - var(--s-16));
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
+				padding-top: 0;
+				padding-bottom: 0;
+				position: relative;
+			}
+			#hero .reveal {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				text-align: start;
 			}
 			.hero-description {
 				font-size: clamp(1rem, 4vw, 1.25rem);
@@ -130,13 +195,98 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 				margin-bottom: var(--s-8);
 				color: var(--text-secondary);
 				line-height: 1.6;
+				text-align: start;
 			}
 			.hero-actions {
 				display: flex;
 				gap: var(--s-4);
 				flex-wrap: wrap;
+				justify-content: flex-start;
 			}
-			
+
+			/* Scroll Indicator */
+			.scroll-indicator {
+				position: absolute;
+				bottom: var(--s-8);
+				left: 50%;
+				transform: translateX(-50%);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: var(--s-2);
+				text-decoration: none;
+				color: var(--text-muted);
+				transition:
+					color var(--transition-fast),
+					opacity var(--transition-base);
+				opacity: 0.6;
+				z-index: 10;
+			}
+			.scroll-indicator:hover {
+				color: var(--accent-start);
+				opacity: 1;
+			}
+			.mouse {
+				width: 22px;
+				height: 36px;
+				border: 2px solid currentColor;
+				border-radius: 12px;
+				position: relative;
+			}
+			.wheel {
+				width: 4px;
+				height: 8px;
+				background-color: currentColor;
+				border-radius: 2px;
+				position: absolute;
+				top: 6px;
+				left: 50%;
+				transform: translateX(-50%);
+				animation: scroll-wheel 1.6s ease-out infinite;
+			}
+			.arrow {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+			.arrow span {
+				display: block;
+				width: 8px;
+				height: 8px;
+				border-right: 2px solid currentColor;
+				border-bottom: 2px solid currentColor;
+				transform: rotate(45deg);
+				margin: -2px;
+				animation: arrow-bounce 1.6s infinite;
+			}
+			.arrow span:nth-child(2) {
+				animation-delay: 0.2s;
+			}
+
+			@keyframes scroll-wheel {
+				0% {
+					opacity: 1;
+					transform: translateX(-50%) translateY(0);
+				}
+				100% {
+					opacity: 0;
+					transform: translateX(-50%) translateY(14px);
+				}
+			}
+			@keyframes arrow-bounce {
+				0% {
+					opacity: 0;
+					transform: rotate(45deg) translate(-4px, -4px);
+				}
+				50% {
+					opacity: 0.8;
+				}
+				100% {
+					opacity: 0;
+					transform: rotate(45deg) translate(4px, 4px);
+				}
+			}
+
 			/* Buttons */
 			.btn {
 				display: inline-flex;
@@ -177,6 +327,7 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 				grid-template-columns: 1.5fr 1fr;
 				gap: var(--s-12);
 				margin-top: var(--s-8);
+				align-items: start;
 			}
 			.skill-tags {
 				display: flex;
@@ -202,7 +353,10 @@ import { SITE_TITLE, SITE_DESCRIPTION, PROJECTS, SKILLS, NAME } from "../consts"
 			/* Projects */
 			.projects-grid {
 				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+				grid-template-columns: repeat(
+					auto-fit,
+					minmax(min(100%, 340px), 1fr)
+				);
 				gap: var(--s-8);
 				margin-top: var(--s-12);
 			}
