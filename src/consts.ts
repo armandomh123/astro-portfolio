@@ -18,7 +18,6 @@ export const NAV_ITEMS = [
 	{ label: "Sobre mí", href: "/#about" },
 	{ label: "Proyectos", href: "/#projects" },
 	{ label: "Contacto", href: "/#contact" },
-	{ label: "Blog", href: "/blog" },
 ];
 
 export const PROJECTS = [
