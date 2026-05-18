@@ -4,13 +4,12 @@
 export const NAME = "Jesús Manjarrez";
 export const SITE_TITLE = "Jesús Manjarrez";
 export const SITE_DESCRIPTION =
-	"Desarrollador web apasionado por crear experiencias digitales modernas y funcionales.";
+	"Ingeniero en desarrollo y gestión de software con enfoque en el desarrollo web fullstack.";
 
 export const SOCIAL_LINKS = {
-	github: "https://github.com/",
-	linkedin: "https://linkedin.com/in/",
-	twitter: "https://x.com/",
-	email: "mailto:contacto@example.com",
+	github: "https://github.com/armandomh123",
+	linkedin: "https://www.linkedin.com/in/jesusmanjarrez/",
+	email: "mailto:amanjarrezh19@gmail.com",
 };
 
 export const NAV_ITEMS = [
