@@ -28,17 +28,26 @@ const { project } = Astro.props;
 			.back-link {
 				display: inline-flex;
 				align-items: center;
-				gap: var(--s-2);
+				justify-content: center;
 				color: var(--text-secondary);
 				text-decoration: none;
-				font-size: 0.95rem;
-				font-weight: 500;
-				margin-bottom: var(--s-6);
-				transition: color var(--transition-fast), transform var(--transition-fast);
+				transition: all var(--transition-fast);
+				padding: var(--s-2);
+				border-radius: 50%;
+				background: var(--bg-surface);
+				border: 1px solid var(--border-color);
+				flex-shrink: 0;
 			}
 			.back-link:hover {
 				color: var(--text-primary);
+				border-color: var(--border-color-hover);
+				background: var(--bg-surface-hover);
 				transform: translateX(-4px);
+			}
+			.back-icon {
+				width: 24px;
+				height: 24px;
+				display: block;
 			}
 			.project-header {
 				margin-bottom: var(--s-8);
@@ -48,10 +57,10 @@ const { project } = Astro.props;
 				font-weight: 850;
 				line-height: 1.1;
 				margin: 0 0 var(--s-3) 0;
-				background: var(--accent-gradient);
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
+				color: var(--text-primary);
+				display: flex;
+				align-items: center;
+				gap: var(--s-4);
 			}
 			.project-tags {
 				display: flex;
@@ -413,13 +422,13 @@ const { project } = Astro.props;
 		<BackgroundVectors />
 		<Header />
 		<main class="container">
-			<a href="/" class="back-link">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="back-icon"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-				Volver al inicio
-			</a>
-
 			<header class="project-header">
-				<h1 class="project-title">{project.title}</h1>
+				<h1 class="project-title">
+					<a href="/" class="back-link" aria-label="Volver al inicio">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="back-icon"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+					</a>
+					<span>{project.title}</span>
+				</h1>
 				<div class="project-tags">
 					{project.tags.map((tag) => (
 						<span>{tag}</span>
@@ -603,7 +612,7 @@ const { project } = Astro.props;
 					currentIndex = index;
 					const newSrc = sources[currentIndex];
 					
-					mainImg.src = newSrc;
+					mainImg!.src = newSrc;
 
 					thumbnails.forEach((t, i) => {
 						if (i === currentIndex) {

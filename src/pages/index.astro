@@ -79,7 +79,11 @@ import {
 								{
 									SKILLS.map((skill) => (
 										<span class="skill-tag">
-											<SkillIcon name={skill} size={18} class="skill-icon" />
+											<SkillIcon
+												name={skill}
+												size={18}
+												class="skill-icon"
+											/>
 											{skill}
 										</span>
 									))
@@ -101,7 +105,10 @@ import {
 					<div class="projects-grid">
 						{
 							PROJECTS.map((project) => (
-								<a href={`/projects/${project.slug}`} class="project-card surface-card">
+								<a
+									href={`/projects/${project.slug}`}
+									class="project-card surface-card"
+								>
 									<div
 										class="project-image"
 										style={`background: ${project.image ? `url(${project.image}) center/cover no-repeat` : project.gradient}; view-transition-name: project-banner-${project.slug};`}
@@ -140,7 +147,7 @@ import {
 							sobre tecnología o nuevas oportunidades.
 						</p>
 						<a
-							href="mailto:contacto@example.com"
+							href="mailto:{SOCIAL_LINKS.email}"
 							class="btn btn-primary">Enviar Email</a
 						>
 					</div>
@@ -358,13 +365,15 @@ import {
 				box-shadow: 0 0 12px var(--accent-glow);
 			}
 			.skill-tag::after {
-				content: '';
+				content: "";
 				position: absolute;
 				inset: 0;
 				background: var(--bg-surface);
 				border-radius: 100px;
 				z-index: -1;
-				transition: background var(--transition-fast), inset var(--transition-fast);
+				transition:
+					background var(--transition-fast),
+					inset var(--transition-fast);
 			}
 			.skill-tag:hover::after {
 				inset: 1.5px;
@@ -372,13 +381,17 @@ import {
 				border-radius: 98px;
 			}
 			.skill-tag::before {
-				content: '';
+				content: "";
 				position: absolute;
 				top: 50%;
 				left: 50%;
 				width: 180px;
 				height: 180px;
-				background: conic-gradient(from 0deg, transparent 70%, var(--accent-start) 100%);
+				background: conic-gradient(
+					from 0deg,
+					transparent 70%,
+					var(--accent-start) 100%
+				);
 				transform: translate(-50%, -50%) rotate(0deg);
 				transition: opacity var(--transition-fast);
 				opacity: 0;
@@ -399,7 +412,9 @@ import {
 			.skill-icon {
 				flex-shrink: 0;
 				color: var(--text-muted);
-				transition: color var(--transition-fast), transform var(--transition-fast);
+				transition:
+					color var(--transition-fast),
+					transform var(--transition-fast);
 			}
 			.skill-tag:hover .skill-icon {
 				color: var(--accent-start);

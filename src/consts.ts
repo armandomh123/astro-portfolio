@@ -62,9 +62,9 @@ export const PROJECTS = [
 	},
 	{
 		slug: "astro-portfolio",
-		title: "Astro Portfolio",
+		title: "Portafolio personal",
 		description:
-			"Este mismo sitio web. Un portafolio digital minimalista, ultra-rápido y con animaciones de última generación.",
+			"Este mismo sitio web. Un portafolio digital minimalista, ultra-rápido y con animaciones suaves.",
 		tags: ["Astro", "TypeScript", "CSS3"],
 		gradient: "linear-gradient(135deg, #02aab0 0%, #00cdac 100%)",
 		image: "/projects/astro-portfolio/preview.webp",
