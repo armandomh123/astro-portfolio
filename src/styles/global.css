@@ -8,25 +8,36 @@
 	--accent-start: oklch(0.72 0.17 153);
 	--accent-end: oklch(0.65 0.18 160);
 	--accent-glow: oklch(0.72 0.17 153 / 0.15);
-	
+
 	/* Spatial Scale (Linear) */
-	--s-1: 0.25rem;  /* 4px */
-	--s-2: 0.5rem;   /* 8px */
-	--s-3: 0.75rem;  /* 12px */
-	--s-4: 1rem;     /* 16px */
-	--s-6: 1.5rem;   /* 24px */
-	--s-8: 2rem;     /* 32px */
-	--s-10: 2.5rem;  /* 40px */
-	--s-12: 3rem;    /* 48px */
-	--s-16: 4rem;    /* 64px */
-	--s-24: 6rem;    /* 96px */
-	--s-32: 8rem;    /* 128px */
+	--s-1: 0.25rem;
+	/* 4px */
+	--s-2: 0.5rem;
+	/* 8px */
+	--s-3: 0.75rem;
+	/* 12px */
+	--s-4: 1rem;
+	/* 16px */
+	--s-6: 1.5rem;
+	/* 24px */
+	--s-8: 2rem;
+	/* 32px */
+	--s-10: 2.5rem;
+	/* 40px */
+	--s-12: 3rem;
+	/* 48px */
+	--s-16: 4rem;
+	/* 64px */
+	--s-24: 6rem;
+	/* 96px */
+	--s-32: 8rem;
+	/* 128px */
 
 	/* Shared Layout */
 	--section-padding: clamp(var(--s-16), 12vh, var(--s-32));
 	--container-width: 1200px;
 	--container-padding: clamp(var(--s-4), 5vw, var(--s-8));
-	
+
 	/* Motion */
 	--transition-fast: 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
 	--transition-base: 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -34,30 +45,28 @@
 	--theme-reveal-x: 50vw;
 	--theme-reveal-y: 50vh;
 	--theme-reveal-duration: 560ms;
-	--theme-reveal-ease: linear(
-		0 0%,
-		0.1684 2.66%,
-		0.3165 5.49%,
-		0.446 8.52%,
-		0.5581 11.78%,
-		0.6535 15.29%,
-		0.7341 19.11%,
-		0.8011 23.3%,
-		0.8557 27.93%,
-		0.8962 32.68%,
-		0.9283 38.01%,
-		0.9529 44.08%,
-		0.9711 51.14%,
-		0.9833 59.06%,
-		0.9915 68.74%,
-		1 100%
-	);
+	--theme-reveal-ease: linear(0 0%,
+			0.1684 2.66%,
+			0.3165 5.49%,
+			0.446 8.52%,
+			0.5581 11.78%,
+			0.6535 15.29%,
+			0.7341 19.11%,
+			0.8011 23.3%,
+			0.8557 27.93%,
+			0.8962 32.68%,
+			0.9283 38.01%,
+			0.9529 44.08%,
+			0.9711 51.14%,
+			0.9833 59.06%,
+			0.9915 68.74%,
+			1 100%);
 	--theme-transition:
 		background-color var(--transition-base),
 		color var(--transition-base),
 		border-color var(--transition-base),
 		box-shadow var(--transition-base);
-	
+
 	/* Radii */
 	--radius-sm: 8px;
 	--radius-md: 14px;
@@ -82,7 +91,7 @@
 
 	--border-color: oklch(1 0 0 / 0.08);
 	--border-color-hover: oklch(1 0 0 / 0.15);
-	
+
 	--header-bg: oklch(0.12 0.01 250 / 0.85);
 	--shadow-glow: 0 0 40px oklch(0.72 0.17 153 / 0.12);
 }
@@ -101,7 +110,7 @@
 
 	--border-color: oklch(0 0 0 / 0.08);
 	--border-color-hover: oklch(0 0 0 / 0.15);
-	
+
 	--header-bg: oklch(1 0 0 / 0.85);
 	--shadow-glow: 0 0 40px oklch(0.72 0.17 153 / 0.08);
 }
@@ -123,7 +132,7 @@ html {
 }
 
 body {
-	font-family: "Outfit", "Inter", system-ui, sans-serif;
+	font-family: "Geist", "Inter", system-ui, sans-serif;
 	background-color: transparent;
 	color: var(--text-primary);
 	font-size: 16px;
@@ -169,6 +178,7 @@ html.theme-transitioning *::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
 	::view-transition-old(root),
 	::view-transition-new(root) {
 		animation: none;
@@ -176,7 +186,10 @@ html.theme-transitioning *::after {
 }
 
 /* ===== Typography ===== */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
 	color: var(--text-primary);
 	line-height: 1.1;
 	letter-spacing: -0.03em;
@@ -184,9 +197,17 @@ h1, h2, h3, h4 {
 	transition: color var(--transition-base);
 }
 
-h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); }
-h2 { font-size: clamp(2rem, 5vw, 3rem); }
-h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); }
+h1 {
+	font-size: clamp(2.5rem, 8vw, 4.5rem);
+}
+
+h2 {
+	font-size: clamp(2rem, 5vw, 3rem);
+}
+
+h3 {
+	font-size: clamp(1.25rem, 3vw, 1.75rem);
+}
 
 .section-title {
 	font-size: clamp(2rem, 5vw, 3rem);
@@ -280,14 +301,17 @@ a {
 .prose {
 	color: var(--text-secondary);
 }
+
 .prose p {
 	margin-bottom: 2em;
 }
+
 .prose h1,
 .prose h2,
 .prose h3 {
 	color: var(--text-primary);
 }
+
 .prose a {
 	color: var(--accent-start);
 	text-decoration: underline;
@@ -295,6 +319,7 @@ a {
 	text-underline-offset: 3px;
 	transition: text-decoration-color var(--transition-fast);
 }
+
 .prose a:hover {
 	text-decoration-color: var(--accent-start);
 }
@@ -315,7 +340,7 @@ pre {
 	border: 1px solid var(--border-color);
 }
 
-pre > code {
+pre>code {
 	all: unset;
 }
 
@@ -354,14 +379,17 @@ input {
 ::-webkit-scrollbar {
 	width: var(--s-2);
 }
+
 ::-webkit-scrollbar-track {
 	background: var(--bg-primary);
 }
+
 ::-webkit-scrollbar-thumb {
 	background: var(--bg-elevated);
 	border-radius: var(--radius-sm);
 	border: 2px solid var(--bg-primary);
 }
+
 ::-webkit-scrollbar-thumb:hover {
 	background: var(--text-muted);
 }
@@ -398,6 +426,7 @@ input {
 .desktop-only {
 	display: flex !important;
 }
+
 .mobile-only {
 	display: none !important;
 }
@@ -406,6 +435,7 @@ input {
 	.desktop-only {
 		display: none !important;
 	}
+
 	.mobile-only {
 		display: block !important;
 	}
