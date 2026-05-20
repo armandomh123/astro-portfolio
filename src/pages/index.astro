@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import BackgroundVectors from "../components/BackgroundVectors.astro";
+import SkillIcon from "../components/SkillIcon.astro";
 import {
 	SITE_TITLE,
 	SITE_DESCRIPTION,
@@ -77,7 +78,10 @@ import {
 							<div class="skill-tags">
 								{
 									SKILLS.map((skill) => (
-										<span class="skill-tag">{skill}</span>
+										<span class="skill-tag">
+											<SkillIcon name={skill} size={18} class="skill-icon" />
+											{skill}
+										</span>
 									))
 								}
 							</div>
@@ -97,10 +101,10 @@ import {
 					<div class="projects-grid">
 						{
 							PROJECTS.map((project) => (
-								<div class="project-card surface-card">
+								<a href={`/projects/${project.slug}`} class="project-card surface-card">
 									<div
 										class="project-image"
-										style={`background: ${project.gradient}`}
+										style={`background: ${project.image ? `url(${project.image}) center/cover no-repeat` : project.gradient}; view-transition-name: project-banner-${project.slug};`}
 									/>
 									<div class="project-content">
 										<h3>{project.title}</h3>
@@ -110,14 +114,11 @@ import {
 												<span>{tag}</span>
 											))}
 										</div>
-										<a
-											href={project.link}
-											class="project-link"
-										>
+										<span class="project-link">
 											Ver más →
-										</a>
+										</span>
 									</div>
-								</div>
+								</a>
 							))
 						}
 					</div>
@@ -151,22 +152,24 @@ import {
 
 		<script>
 			// Scroll Reveal Animation
-			const observerOptions = {
-				threshold: 0.1,
-				rootMargin: "0px 0px -50px 0px",
-			};
+			document.addEventListener("astro:page-load", () => {
+				const observerOptions = {
+					threshold: 0.1,
+					rootMargin: "0px 0px -50px 0px",
+				};
 
-			const observer = new IntersectionObserver((entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						entry.target.classList.add("visible");
-					}
-				});
-			}, observerOptions);
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("visible");
+						}
+					});
+				}, observerOptions);
 
-			document
-				.querySelectorAll(".reveal")
-				.forEach((el) => observer.observe(el));
+				document
+					.querySelectorAll(".reveal")
+					.forEach((el) => observer.observe(el));
+			});
 		</script>
 
 		<style>
@@ -177,7 +180,7 @@ import {
 				min-height: calc(100vh - var(--s-16));
 				display: flex;
 				align-items: center;
-				justify-content: flex-start;
+				justify-content: center;
 				padding-top: 0;
 				padding-bottom: 0;
 				position: relative;
@@ -185,8 +188,8 @@ import {
 			#hero .reveal {
 				display: flex;
 				flex-direction: column;
-				align-items: flex-start;
-				text-align: start;
+				align-items: center;
+				text-align: center;
 			}
 			.hero-description {
 				font-size: clamp(1rem, 4vw, 1.25rem);
@@ -194,13 +197,13 @@ import {
 				margin-bottom: var(--s-8);
 				color: var(--text-secondary);
 				line-height: 1.6;
-				text-align: start;
+				text-align: center;
 			}
 			.hero-actions {
 				display: flex;
 				gap: var(--s-4);
 				flex-wrap: wrap;
-				justify-content: flex-start;
+				justify-content: center;
 			}
 
 			/* Scroll Indicator */
@@ -335,18 +338,72 @@ import {
 				margin-top: var(--s-4);
 			}
 			.skill-tag {
+				position: relative;
+				display: inline-flex;
+				align-items: center;
+				gap: var(--s-2);
 				padding: var(--s-2) var(--s-4);
-				background: var(--bg-surface);
+				background: transparent;
 				border: 1px solid var(--border-color);
 				border-radius: 100px;
 				font-size: 0.85rem;
 				color: var(--text-secondary);
 				transition: all var(--transition-fast);
+				overflow: hidden;
+				z-index: 1;
 			}
 			.skill-tag:hover {
-				border-color: var(--border-color-hover);
+				border-color: transparent;
 				color: var(--text-primary);
+				box-shadow: 0 0 12px var(--accent-glow);
+			}
+			.skill-tag::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: var(--bg-surface);
+				border-radius: 100px;
+				z-index: -1;
+				transition: background var(--transition-fast), inset var(--transition-fast);
+			}
+			.skill-tag:hover::after {
+				inset: 1.5px;
 				background: var(--bg-surface-hover);
+				border-radius: 98px;
+			}
+			.skill-tag::before {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 180px;
+				height: 180px;
+				background: conic-gradient(from 0deg, transparent 70%, var(--accent-start) 100%);
+				transform: translate(-50%, -50%) rotate(0deg);
+				transition: opacity var(--transition-fast);
+				opacity: 0;
+				z-index: -2;
+			}
+			.skill-tag:hover::before {
+				opacity: 1;
+				animation: rotate-border 1.5s linear infinite;
+			}
+			@keyframes rotate-border {
+				0% {
+					transform: translate(-50%, -50%) rotate(0deg);
+				}
+				100% {
+					transform: translate(-50%, -50%) rotate(360deg);
+				}
+			}
+			.skill-icon {
+				flex-shrink: 0;
+				color: var(--text-muted);
+				transition: color var(--transition-fast), transform var(--transition-fast);
+			}
+			.skill-tag:hover .skill-icon {
+				color: var(--accent-start);
+				transform: scale(1.1);
 			}
 
 			/* Projects */
@@ -361,6 +418,10 @@ import {
 			}
 			.project-card {
 				height: 100%;
+				display: flex;
+				flex-direction: column;
+				text-decoration: none;
+				color: inherit;
 			}
 			.project-image {
 				height: 220px;

@@ -70,8 +70,6 @@
 </style>
 
 <script>
-    const toggle = document.getElementById('theme-toggle');
-    const root = document.documentElement;
     const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     let isThemeTransitionRunning = false;
 
@@ -88,7 +86,7 @@
     };
 
     const applyTheme = (newTheme) => {
-        root.setAttribute('data-theme', newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
     };
 
@@ -101,7 +99,7 @@
     const handleToggleClick = async (event) => {
         if (isThemeTransitionRunning) return;
 
-        const isDark = root.getAttribute('data-theme') === 'dark';
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const newTheme = isDark ? 'light' : 'dark';
 
         if (!document.startViewTransition || reduceMotionQuery.matches) {
@@ -110,13 +108,14 @@
         }
 
         // Capturar coordenadas del click para centrar el reveal
-        const x = event.clientX || (toggle ? toggle.getBoundingClientRect().left + 20 : window.innerWidth / 2);
-        const y = event.clientY || (toggle ? toggle.getBoundingClientRect().top + 20 : window.innerHeight / 2);
-        root.style.setProperty('--theme-reveal-x', `${x}px`);
-        root.style.setProperty('--theme-reveal-y', `${y}px`);
+        const toggleButton = document.getElementById('theme-toggle');
+        const x = event.clientX || (toggleButton ? toggleButton.getBoundingClientRect().left + 20 : window.innerWidth / 2);
+        const y = event.clientY || (toggleButton ? toggleButton.getBoundingClientRect().top + 20 : window.innerHeight / 2);
+        document.documentElement.style.setProperty('--theme-reveal-x', `${x}px`);
+        document.documentElement.style.setProperty('--theme-reveal-y', `${y}px`);
 
         isThemeTransitionRunning = true;
-        root.classList.add('theme-transitioning');
+        document.documentElement.classList.add('theme-transitioning');
 
         const transition = document.startViewTransition(() => {
             applyTheme(newTheme);
@@ -125,12 +124,20 @@
         try {
             await transition.finished;
         } finally {
-            root.classList.remove('theme-transitioning');
+            document.documentElement.classList.remove('theme-transitioning');
             isThemeTransitionRunning = false;
         }
     };
 
-    if (toggle) {
-        toggle.addEventListener('click', handleToggleClick);
-    }
+    // Re-apply theme on transition swaps to prevent resetting to dark mode
+    document.addEventListener('astro:after-swap', () => {
+        applyTheme(getPreferredTheme());
+    });
+
+    document.addEventListener('astro:page-load', () => {
+        const toggleButton = document.getElementById('theme-toggle');
+        if (toggleButton) {
+            toggleButton.addEventListener('click', handleToggleClick);
+        }
+    });
 </script>

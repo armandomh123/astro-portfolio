@@ -150,6 +150,7 @@ html.theme-transitioning *,
 html.theme-transitioning *::before,
 html.theme-transitioning *::after {
 	transition: none !important;
+	view-transition-name: none !important;
 }
 
 ::view-transition-old(root),
