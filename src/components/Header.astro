@@ -1,7 +1,7 @@
 ---
-import HeaderLink from './HeaderLink.astro';
-import ThemeIcon from './ThemeIcon.astro';
-import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from '../consts';
+import HeaderLink from "./HeaderLink.astro";
+import ThemeIcon from "./ThemeIcon.astro";
+import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from "../consts";
 ---
 
 <header>
@@ -12,30 +12,52 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from '../consts';
 
 		<!-- Desktop Links -->
 		<div class="internal-links desktop-only">
-			{NAV_ITEMS.map((item) => (
-				<HeaderLink href={item.href}>{item.label}</HeaderLink>
-			))}
+			{
+				NAV_ITEMS.map((item) => (
+					<HeaderLink href={item.href}>{item.label}</HeaderLink>
+				))
+			}
 		</div>
 
 		<div class="header-actions">
 			<ThemeIcon />
-			
+
 			<!-- Desktop Socials -->
 			<div class="social-links desktop-only">
 				<a href={SOCIAL_LINKS.github} target="_blank">
 					<span class="sr-only">GitHub</span>
-					<svg viewBox="0 0 16 16" aria-hidden="true" width="20" height="20">
-						<path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+					<svg
+						viewBox="0 0 16 16"
+						aria-hidden="true"
+						width="20"
+						height="20"
+					>
+						<path
+							fill="currentColor"
+							d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+						></path>
 					</svg>
 				</a>
 			</div>
 
 			<!-- Mobile Menu Toggle -->
-			<button id="menu-toggle" class="mobile-only" aria-label="Abrir menú">
-				<svg id="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<line x1="3" y1="12" x2="21" y2="12" class="line-mid"></line>
+			<button
+				id="menu-toggle"
+				class="mobile-only"
+				aria-label="Abrir menú"
+			>
+				<svg
+					id="menu-icon"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<line x1="3" y1="12" x2="21" y2="12" class="line-mid"
+					></line>
 					<line x1="3" y1="6" x2="21" y2="6" class="line-top"></line>
-					<line x1="3" y1="18" x2="21" y2="18" class="line-bot"></line>
+					<line x1="3" y1="18" x2="21" y2="18" class="line-bot"
+					></line>
 				</svg>
 			</button>
 		</div>
@@ -44,9 +66,13 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from '../consts';
 		<div id="mobile-drawer" class="mobile-only">
 			<div class="drawer-content">
 				<div class="drawer-links">
-					{NAV_ITEMS.map((item) => (
-						<a href={item.href} class="drawer-link">{item.label}</a>
-					))}
+					{
+						NAV_ITEMS.map((item) => (
+							<a href={item.href} class="drawer-link">
+								{item.label}
+							</a>
+						))
+					}
 				</div>
 				<div class="drawer-socials">
 					<a href={SOCIAL_LINKS.github} target="_blank">GitHub</a>
@@ -58,23 +84,23 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from '../consts';
 </header>
 
 <script>
-	const menuToggle = document.getElementById('menu-toggle');
-	const mobileDrawer = document.getElementById('mobile-drawer');
+	const menuToggle = document.getElementById("menu-toggle");
+	const mobileDrawer = document.getElementById("mobile-drawer");
 	let isOpen = false;
 
 	const toggleMenu = () => {
 		isOpen = !isOpen;
-		menuToggle?.classList.toggle('active', isOpen);
-		mobileDrawer?.classList.toggle('active', isOpen);
-		document.body.style.overflow = isOpen ? 'hidden' : '';
+		menuToggle?.classList.toggle("active", isOpen);
+		mobileDrawer?.classList.toggle("active", isOpen);
+		document.body.style.overflow = isOpen ? "hidden" : "";
 	};
 
-	menuToggle?.addEventListener('click', toggleMenu);
+	menuToggle?.addEventListener("click", toggleMenu);
 
 	// Close menu when clicking a link
-	const drawerLinks = document.querySelectorAll('.drawer-link');
-	drawerLinks.forEach(link => {
-		link.addEventListener('click', () => {
+	const drawerLinks = document.querySelectorAll(".drawer-link");
+	drawerLinks.forEach((link) => {
+		link.addEventListener("click", () => {
 			if (isOpen) toggleMenu();
 		});
 	});
@@ -162,9 +188,15 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from '../consts';
 		transition: all var(--transition-base);
 		transform-origin: center;
 	}
-	#menu-toggle.active .line-top { transform: translateY(6px) rotate(45deg); }
-	#menu-toggle.active .line-mid { opacity: 0; }
-	#menu-toggle.active .line-bot { transform: translateY(-6px) rotate(-45deg); }
+	#menu-toggle.active .line-top {
+		transform: translateY(6px) rotate(45deg);
+	}
+	#menu-toggle.active .line-mid {
+		opacity: 0;
+	}
+	#menu-toggle.active .line-bot {
+		transform: translateY(-6px) rotate(-45deg);
+	}
 
 	/* Mobile Drawer */
 	#mobile-drawer {
@@ -213,7 +245,11 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from '../consts';
 	}
 
 	@media (max-width: 768px) {
-		header { height: var(--s-16); }
-		#menu-toggle { display: flex; }
+		header {
+			height: var(--s-16);
+		}
+		#menu-toggle {
+			display: flex;
+		}
 	}
 </style>

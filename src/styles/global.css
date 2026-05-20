@@ -1,6 +1,8 @@
 /*
   Premium dark portfolio theme - Impeccable Polish
 */
+@import "@fontsource-variable/geist";
+
 
 /* ===== Design Tokens ===== */
 :root {
@@ -132,7 +134,7 @@ html {
 }
 
 body {
-	font-family: "Geist", "Inter", system-ui, sans-serif;
+	font-family: "Geist Variable", "Inter", system-ui, sans-serif;
 	background-color: transparent;
 	color: var(--text-primary);
 	font-size: 16px;
