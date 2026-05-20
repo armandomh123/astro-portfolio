@@ -10,6 +10,7 @@ import {
 	PROJECTS,
 	SKILLS,
 	NAME,
+	SOCIAL_LINKS,
 } from "../consts";
 ---
 
@@ -21,7 +22,7 @@ import {
 	<body>
 		<BackgroundVectors />
 		<Header />
-
+		?
 		<main>
 			<!-- Hero Section -->
 			<section id="hero" class="section container">
@@ -146,9 +147,8 @@ import {
 							No dudes en enviarme un mensaje si quieres charlar
 							sobre tecnología o nuevas oportunidades.
 						</p>
-						<a
-							href="mailto:{SOCIAL_LINKS.email}"
-							class="btn btn-primary">Enviar Email</a
+						<a href={SOCIAL_LINKS.email} class="btn btn-primary"
+							>Enviar Email</a
 						>
 					</div>
 				</div>
