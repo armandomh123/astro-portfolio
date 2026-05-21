@@ -115,9 +115,9 @@
         document.documentElement.style.setProperty('--theme-reveal-y', `${y}px`);
 
         isThemeTransitionRunning = true;
-        document.documentElement.classList.add('theme-transitioning');
 
         const transition = document.startViewTransition(() => {
+            document.documentElement.classList.add('theme-transitioning');
             applyTheme(newTheme);
         });
 
