@@ -14,6 +14,8 @@ import {
 } from "../consts";
 
 const projectsOrder = [
+	"sitehasa-web",
+	"sitehasa-movil",
 	"astro-portfolio",
 ];
 
@@ -159,6 +161,68 @@ const projects = (await getCollection("projects")).sort(
 								</a>
 							))
 						}
+					</div>
+				</div>
+			</section>
+
+			<!-- Experience Section -->
+			<section id="experience" class="section container">
+				<div class="reveal">
+					<h2 class="section-title">Experiencia</h2>
+					<p class="section-subtitle">
+						Mi trayectoria y aportes en el ámbito profesional y tecnológico.
+					</p>
+
+					<div class="experience-timeline">
+						<div class="timeline-item">
+							<div class="timeline-badge"></div>
+							<div class="timeline-content surface-card">
+								<div class="experience-header">
+									<div class="title-group">
+										<h3>SITEHASA</h3>
+										<span class="role">Estadías profesionales</span>
+									</div>
+									<span class="duration">Enero 2026 - Abril 2026</span>
+								</div>
+								<p class="experience-desc">
+									Desarrollé y automaticé la operación de una garza de agua a través de un ecosistema móvil y web integrado con controladores de hardware.
+								</p>
+								<div class="experience-tags">
+									<span>React Native</span>
+									<span>Expo</span>
+									<span>PHP</span>
+									<span>Laravel</span>
+									<span>Livewire</span>
+									<span>Filament PHP</span>
+									<span>MySQL</span>
+									<span>Git</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="timeline-item">
+							<div class="timeline-badge"></div>
+							<div class="timeline-content surface-card">
+								<div class="experience-header">
+									<div class="title-group">
+										<h3>Alfanetworks</h3>
+										<span class="role">Estadías profesionales</span>
+									</div>
+									<span class="duration">Abril 2024 - Agosto 2024</span>
+								</div>
+								<p class="experience-desc">
+									Desarrollé una aplicación web para la gestión de eventos sociales (bautizos, bodas, fiestas, etc.) con roles diferenciados: administrador, planner e invitado.
+								</p>
+								<div class="experience-tags">
+									<span>PHP</span>
+									<span>JavaScript</span>
+									<span>HTML</span>
+									<span>CSS</span>
+									<span>MySQL</span>
+									<span>Figma</span>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -586,6 +650,124 @@ const projects = (await getCollection("projects")).sort(
 				.section {
 					padding-top: var(--s-12);
 					padding-bottom: var(--s-12);
+				}
+			}
+
+			/* ===== Experience Section ===== */
+			.experience-timeline {
+				position: relative;
+				margin-top: var(--s-10);
+				display: flex;
+				flex-direction: column;
+				gap: var(--s-6);
+				width: 100%;
+			}
+			/* Vertical line */
+			.experience-timeline::before {
+				content: '';
+				position: absolute;
+				left: 8px;
+				top: var(--s-6);
+				bottom: var(--s-6);
+				width: 2px;
+				background: linear-gradient(to bottom, var(--accent-start) 0%, var(--border-color) 100%);
+			}
+			.timeline-item {
+				position: relative;
+				padding-left: 2.25rem;
+			}
+			.timeline-badge {
+				position: absolute;
+				left: 3px;
+				top: 1.6rem;
+				width: 12px;
+				height: 12px;
+				border-radius: 50%;
+				background: var(--bg-primary);
+				border: 3px solid var(--accent-start);
+				box-shadow: 0 0 8px var(--accent-start);
+				z-index: 2;
+			}
+			.timeline-content {
+				padding: var(--s-8);
+				border-radius: var(--radius-lg);
+				background: transparent;
+				border: 1px solid transparent;
+				transition: background-color var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
+			}
+			.timeline-content:hover {
+				border-color: var(--border-color);
+				background: var(--bg-surface);
+				transform: translateY(-2px);
+			}
+			.experience-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				flex-wrap: wrap;
+				gap: var(--s-3);
+				margin-bottom: var(--s-3);
+			}
+			.experience-header .title-group h3 {
+				font-size: 1.4rem;
+				font-weight: 750;
+				color: var(--text-primary);
+				margin-bottom: var(--s-1);
+			}
+			.experience-header .role {
+				display: inline-block;
+				font-size: 0.8rem;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				color: var(--accent-start);
+				font-weight: 700;
+			}
+			.experience-header .duration {
+				font-size: 0.9rem;
+				color: var(--text-muted);
+				font-weight: 500;
+			}
+			.experience-desc {
+				font-size: 1.05rem;
+				line-height: 1.6;
+				color: var(--text-secondary);
+				margin-bottom: var(--s-4);
+			}
+			.experience-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: var(--s-2);
+			}
+			.experience-tags span {
+				font-size: 0.75rem;
+				font-weight: 600;
+				background: var(--bg-elevated);
+				border: 1px solid var(--border-color);
+				padding: var(--s-1) var(--s-3);
+				border-radius: var(--radius-sm);
+				color: var(--text-muted);
+				transition: color var(--transition-fast), border-color var(--transition-fast);
+			}
+			.timeline-content:hover .experience-tags span {
+				color: var(--text-secondary);
+				border-color: var(--border-color-hover);
+			}
+			@media (max-width: 600px) {
+				.experience-header {
+					flex-direction: column;
+					gap: var(--s-1);
+				}
+				.timeline-item {
+					padding-left: 1.75rem;
+				}
+				.experience-timeline::before {
+					left: 4px;
+				}
+				.timeline-badge {
+					left: -1px;
+				}
+				.timeline-content {
+					padding: var(--s-6) var(--s-4);
 				}
 			}
 		</style>

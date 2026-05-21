@@ -17,4 +17,11 @@ features:
   - "Estructura semántica preparada para SEO"
 ---
 
-Mi portafolio personal construido con enfoque en la experiencia de usuario y rendimiento web impecable. Utiliza compilación estática (SSG) nativa de Astro, logrando tiempos de carga instantáneos, e incorpora transiciones de páginas (View Transitions) e iconos vectorizados inlined para eliminar cualquier sobrecarga de JavaScript al cliente.
+Mi **portafolio personal** es un espacio digital diseñado bajo la filosofía de "cero JavaScript innecesario", enfocado en la experiencia de usuario y la velocidad extrema de carga.
+
+### Características Principales
+
+*   **Arquitectura Estática**: Construido con **Astro** (SSG) y **Vanilla CSS**, eliminando frameworks pesados y JavaScript redundante en el cliente.
+*   **Navegación Fluida**: Incorpora **View Transitions** para transiciones cinemáticas instantáneas entre páginas.
+*   **Tema Interactivo**: Toggle de tema claro y oscuro dinámico mediante un efecto de revelado circular nativo.
+*   **Rendimiento Web**: Optimización SEO completa, tipografías variables precargadas e iconos vectorizados en línea.
