@@ -231,7 +231,7 @@ p {
 a {
 	color: var(--accent-start);
 	text-decoration: none;
-	transition: all var(--transition-fast);
+	transition: color var(--transition-fast), opacity var(--transition-fast), transform var(--transition-fast);
 }
 
 /* ===== Utility Classes ===== */
@@ -274,7 +274,7 @@ a {
 	background: var(--bg-surface);
 	border: 1px solid var(--border-color);
 	border-radius: var(--radius-md);
-	transition: all var(--transition-base);
+	transition: background-color var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
 	position: relative;
 	overflow: hidden;
 }

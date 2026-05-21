@@ -3,23 +3,24 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import BackgroundVectors from '../../components/BackgroundVectors.astro';
-import { PROJECTS } from '../../consts';
-
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-	return PROJECTS.map((project) => ({
-		params: { slug: project.slug },
+	const projects = await getCollection('projects');
+	return projects.map((project) => ({
+		params: { slug: project.id },
 		props: { project },
 	}));
 }
 
 const { project } = Astro.props;
+const { Content } = await render(project);
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
-		<BaseHead title={`${project.title} - Jesús Manjarrez`} description={project.description} />
+		<BaseHead title={`${project.data.title} - Jesús Manjarrez`} description={project.data.description} />
 		<style>
 			main {
 				padding-top: 7rem;
@@ -281,31 +282,31 @@ const { project } = Astro.props;
 			.main-content {
 				display: flex;
 				flex-direction: column;
-				height: 100%;
+				gap: var(--s-10);
 			}
-			.main-content .details-card:last-child {
-				margin-bottom: 0;
-				flex-grow: 1;
-			}
-			.details-card {
-				background: var(--bg-surface);
-				border: 1px solid var(--border-color);
-				border-radius: var(--radius-md);
-				padding: var(--s-8);
-				margin-bottom: var(--s-8);
-			}
-			.details-card h2 {
-				font-size: 1.5rem;
+			.project-section h2 {
+				font-size: 1.75rem;
+				font-weight: 750;
 				margin-top: 0;
-				margin-bottom: var(--s-4);
+				margin-bottom: var(--s-5);
 				color: var(--text-primary);
-				border-bottom: 1px solid var(--border-color);
+				position: relative;
 				padding-bottom: var(--s-2);
 			}
-			.details-card p {
+			.project-section h2::after {
+				content: "";
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 40px;
+				height: 3px;
+				background: var(--accent-start);
+				border-radius: 2px;
+			}
+			.project-content {
 				color: var(--text-secondary);
-				line-height: 1.7;
-				margin-bottom: 0;
+				line-height: 1.8;
+				font-size: 1.05rem;
 			}
 			.features-list {
 				list-style: none;
@@ -330,21 +331,22 @@ const { project } = Astro.props;
 			.sidebar-sticky {
 				position: sticky;
 				top: 8rem;
-				display: flex;
-				flex-direction: column;
-				gap: var(--s-6);
 				align-self: start;
+				width: 100%;
 			}
 			.info-box {
 				background: var(--bg-surface);
 				border: 1px solid var(--border-color);
 				border-radius: var(--radius-md);
 				padding: var(--s-6);
+				display: flex;
+				flex-direction: column;
+				gap: var(--s-6);
 			}
 			.info-box h3 {
 				font-size: 1.15rem;
 				margin-top: 0;
-				margin-bottom: var(--s-3);
+				margin-bottom: 0;
 				color: var(--text-primary);
 			}
 			.info-list {
@@ -374,12 +376,9 @@ const { project } = Astro.props;
 			}
 			.action-buttons {
 				display: flex;
+				flex-direction: column;
 				gap: var(--s-3);
 				width: 100%;
-			}
-			.action-buttons .btn {
-				flex: 1;
-				white-space: nowrap;
 			}
 			.btn {
 				display: inline-flex;
@@ -390,7 +389,7 @@ const { project } = Astro.props;
 				border-radius: 8px;
 				font-weight: 600;
 				text-decoration: none;
-				transition: all var(--transition-fast);
+				transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 				font-size: 0.95rem;
 				text-align: center;
 				cursor: pointer;
@@ -427,10 +426,10 @@ const { project } = Astro.props;
 					<a href="/" class="back-link" aria-label="Volver al inicio">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="back-icon"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
 					</a>
-					<span>{project.title}</span>
+					<span>{project.data.title}</span>
 				</h1>
 				<div class="project-tags">
-					{project.tags.map((tag) => (
+					{project.data.tags.map((tag) => (
 						<span>{tag}</span>
 					))}
 				</div>
@@ -438,22 +437,22 @@ const { project } = Astro.props;
 
 			<div class="project-gallery">
 				<div class="gallery-main-wrapper">
-					{project.image ? (
+					{project.data.image ? (
 						<img 
 							id="gallery-main-img"
-							src={project.image} 
-							alt={project.title}
+							src={project.data.image} 
+							alt={project.data.title}
 							class="gallery-main-img" 
-							style={`view-transition-name: project-banner-${project.slug};`}
+							style={`view-transition-name: project-banner-${project.id};`}
 						/>
 					) : (
 						<div 
 							class="gallery-fallback-gradient" 
-							style={`background: ${project.gradient}; view-transition-name: project-banner-${project.slug};`}
+							style={`background: ${project.data.gradient}; view-transition-name: project-banner-${project.id};`}
 						/>
 					)}
 
-					{project.gallery && project.gallery.length > 1 && (
+					{project.data.gallery && project.data.gallery.length > 1 && (
 						<>
 							<button id="gallery-prev-btn" class="gallery-nav-btn prev" aria-label="Imagen anterior">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
@@ -464,7 +463,7 @@ const { project } = Astro.props;
 						</>
 					)}
 
-					{project.image && (
+					{project.data.image && (
 						<button id="gallery-zoom-btn" class="gallery-zoom-btn" aria-label="Ver imagen completa">
 							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="zoom-icon"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
 							<span>Ampliar imagen</span>
@@ -472,15 +471,15 @@ const { project } = Astro.props;
 					)}
 				</div>
 				
-				{project.gallery && project.gallery.length > 1 && (
+				{project.data.gallery && project.data.gallery.length > 1 && (
 					<div class="gallery-thumbnails">
-						{project.gallery.map((imgUrl, index) => (
+						{project.data.gallery.map((imgUrl, index) => (
 							<button 
 								class={`gallery-thumb-btn ${index === 0 ? 'active' : ''}`}
 								data-src={imgUrl}
 								aria-label={`Ver imagen ${index + 1}`}
 							>
-								<img src={imgUrl} alt={`${project.title} - Captura ${index + 1}`} />
+								<img src={imgUrl} alt={`${project.data.title} - Captura ${index + 1}`} />
 							</button>
 						))}
 					</div>
@@ -489,22 +488,24 @@ const { project } = Astro.props;
 
 			<div class="project-grid">
 				<div class="main-content">
-					<div class="details-card">
+					<section class="project-section">
 						<h2>Sobre el proyecto</h2>
-						<p>{project.longDescription}</p>
-					</div>
+						<div class="project-content">
+							<Content />
+						</div>
+					</section>
 
-					<div class="details-card">
+					<section class="project-section">
 						<h2>Características principales</h2>
 						<ul class="features-list">
-							{project.features.map((feature) => (
+							{project.data.features.map((feature) => (
 								<li>
 									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><polyline points="20 6 9 17 4 12"/></svg>
 									<span>{feature}</span>
 								</li>
 							))}
 						</ul>
-					</div>
+					</section>
 				</div>
 
 				<div class="sidebar-sticky">
@@ -524,17 +525,17 @@ const { project } = Astro.props;
 								<span>Jamstack / SSG</span>
 							</div>
 						</div>
-					</div>
 
-					<div class="action-buttons">
-						<a href="#" class="btn btn-primary">
-							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-							Demo en vivo
-						</a>
-						<a href="#" class="btn btn-secondary">
-							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-							Código fuente
-						</a>
+						<div class="action-buttons">
+							<a href="#" class="btn btn-primary">
+								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+								Demo en vivo
+							</a>
+							<a href="#" class="btn btn-secondary">
+								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+								Código fuente
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>

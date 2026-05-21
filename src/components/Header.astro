@@ -24,7 +24,7 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from "../consts";
 
 			<!-- Desktop Socials -->
 			<div class="social-links desktop-only">
-				<a href={SOCIAL_LINKS.github} target="_blank">
+				<a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer">
 					<span class="sr-only">GitHub</span>
 					<svg
 						viewBox="0 0 16 16"
@@ -38,7 +38,7 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from "../consts";
 						></path>
 					</svg>
 				</a>
-				<a href={SOCIAL_LINKS.linkedin} target="_blank">
+				<a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">
 					<span class="sr-only">LinkedIn</span>
 					<svg
 						viewBox="0 0 24 24"
@@ -89,8 +89,8 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from "../consts";
 					}
 				</div>
 				<div class="drawer-socials">
-					<a href={SOCIAL_LINKS.github} target="_blank">GitHub</a>
-					<a href={SOCIAL_LINKS.linkedin} target="_blank">LinkedIn</a>
+					<a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+					<a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
 				</div>
 			</div>
 		</div>
@@ -98,24 +98,28 @@ import { SITE_TITLE, NAV_ITEMS, SOCIAL_LINKS } from "../consts";
 </header>
 
 <script>
-	const menuToggle = document.getElementById("menu-toggle");
-	const mobileDrawer = document.getElementById("mobile-drawer");
-	let isOpen = false;
+	document.addEventListener("astro:page-load", () => {
+		const menuToggle = document.getElementById("menu-toggle");
+		const mobileDrawer = document.getElementById("mobile-drawer");
+		let isOpen = false;
 
-	const toggleMenu = () => {
-		isOpen = !isOpen;
-		menuToggle?.classList.toggle("active", isOpen);
-		mobileDrawer?.classList.toggle("active", isOpen);
-		document.body.style.overflow = isOpen ? "hidden" : "";
-	};
+		const toggleMenu = () => {
+			isOpen = !isOpen;
+			menuToggle?.classList.toggle("active", isOpen);
+			mobileDrawer?.classList.toggle("active", isOpen);
+			document.body.style.overflow = isOpen ? "hidden" : "";
+		};
 
-	menuToggle?.addEventListener("click", toggleMenu);
+		// Remove any existing listener before adding to prevent duplicates
+		menuToggle?.removeEventListener("click", toggleMenu);
+		menuToggle?.addEventListener("click", toggleMenu);
 
-	// Close menu when clicking a link
-	const drawerLinks = document.querySelectorAll(".drawer-link");
-	drawerLinks.forEach((link) => {
-		link.addEventListener("click", () => {
-			if (isOpen) toggleMenu();
+		// Close menu when clicking a link
+		const drawerLinks = document.querySelectorAll(".drawer-link");
+		drawerLinks.forEach((link) => {
+			link.addEventListener("click", () => {
+				if (isOpen) toggleMenu();
+			});
 		});
 	});
 </script>

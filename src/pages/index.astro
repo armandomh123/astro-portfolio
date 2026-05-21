@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -7,11 +8,18 @@ import SkillIcon from "../components/SkillIcon.astro";
 import {
 	SITE_TITLE,
 	SITE_DESCRIPTION,
-	PROJECTS,
 	SKILLS,
 	NAME,
 	SOCIAL_LINKS,
 } from "../consts";
+
+const projectsOrder = [
+	"astro-portfolio",
+];
+
+const projects = (await getCollection("projects")).sort(
+	(a, b) => projectsOrder.indexOf(a.id) - projectsOrder.indexOf(b.id),
+);
 ---
 
 <!doctype html>
@@ -105,25 +113,47 @@ import {
 
 					<div class="projects-grid">
 						{
-							PROJECTS.map((project) => (
+							projects.map((project) => (
 								<a
-									href={`/projects/${project.slug}`}
+									href={`/projects/${project.id}`}
 									class="project-card surface-card"
 								>
 									<div
 										class="project-image"
-										style={`background: ${project.image ? `url(${project.image}) center/cover no-repeat` : project.gradient}; view-transition-name: project-banner-${project.slug};`}
+										style={`background: ${project.data.image ? `url(${project.data.image}) center/cover no-repeat` : project.data.gradient}; view-transition-name: project-banner-${project.id};`}
 									/>
 									<div class="project-content">
-										<h3>{project.title}</h3>
-										<p>{project.description}</p>
+										<h3>{project.data.title}</h3>
+										<p>{project.data.description}</p>
 										<div class="project-tags">
-											{project.tags.map((tag) => (
+											{project.data.tags.map((tag) => (
 												<span>{tag}</span>
 											))}
 										</div>
 										<span class="project-link">
-											Ver más →
+											Ver detalles
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="16"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2.5"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												class="link-icon"
+											>
+												<>
+													<line
+														x1="5"
+														y1="12"
+														x2="19"
+														y2="12"
+													/>
+													<polyline points="12 5 19 12 12 19" />
+												</>
+											</svg>
 										</span>
 									</div>
 								</a>
@@ -142,11 +172,13 @@ import {
 					</p>
 
 					<div class="contact-card surface-card">
-						<h3>Hablemos</h3>
-						<p>
-							No dudes en enviarme un mensaje si quieres charlar
-							sobre tecnología o nuevas oportunidades.
-						</p>
+						<div class="contact-card-content">
+							<h3>Hablemos</h3>
+							<p>
+								No dudes en enviarme un mensaje si quieres charlar
+								sobre tecnología o nuevas oportunidades.
+							</p>
+						</div>
 						<a href={SOCIAL_LINKS.email} class="btn btn-primary"
 							>Enviar Email</a
 						>
@@ -176,6 +208,15 @@ import {
 				document
 					.querySelectorAll(".reveal")
 					.forEach((el) => observer.observe(el));
+
+				// Clean up observer on page swap to avoid memory leaks
+				document.addEventListener(
+					"astro:before-swap",
+					() => {
+						observer.disconnect();
+					},
+					{ once: true },
+				);
 			});
 		</script>
 
@@ -304,7 +345,11 @@ import {
 				padding: var(--s-3) var(--s-8);
 				border-radius: var(--radius-md);
 				font-weight: 600;
-				transition: all var(--transition-base);
+				transition:
+					transform var(--transition-base),
+					background-color var(--transition-base),
+					border-color var(--transition-base),
+					box-shadow var(--transition-base);
 				cursor: pointer;
 				text-decoration: none;
 				min-width: 160px;
@@ -355,7 +400,10 @@ import {
 				border-radius: 100px;
 				font-size: 0.85rem;
 				color: var(--text-secondary);
-				transition: all var(--transition-fast);
+				transition:
+					border-color var(--transition-fast),
+					color var(--transition-fast),
+					box-shadow var(--transition-fast);
 				overflow: hidden;
 				z-index: 1;
 			}
@@ -442,7 +490,7 @@ import {
 				height: 220px;
 				width: 100%;
 				opacity: 0.9;
-				transition: all var(--transition-base);
+				transition: opacity var(--transition-base);
 				position: relative;
 			}
 			.project-card:hover .project-image {
@@ -477,24 +525,54 @@ import {
 				font-size: 0.9rem;
 				display: inline-flex;
 				align-items: center;
-				gap: var(--s-1);
+				gap: var(--s-1-5);
+				color: var(--accent-start);
+				transition: color var(--transition-fast);
+			}
+			.link-icon {
+				transition: transform var(--transition-fast);
+			}
+			.project-card:hover .project-link {
+				color: var(--accent-end);
+			}
+			.project-card:hover .link-icon {
+				transform: translateX(4px);
 			}
 
 			/* Contact */
 			.contact-card {
 				margin-top: var(--s-12);
-				padding: var(--s-12) var(--s-6);
-				text-align: center;
-				max-width: 800px;
-				margin-left: auto;
-				margin-right: auto;
+				padding: var(--s-10) var(--s-12);
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: var(--s-8);
+			}
+			.contact-card-content {
+				text-align: left;
 			}
 			.contact-card h3 {
-				font-size: clamp(1.5rem, 6vw, 2.5rem);
-				margin-bottom: var(--s-4);
+				font-size: clamp(1.5rem, 4vw, 2.25rem);
+				margin-bottom: var(--s-2);
+			}
+			.contact-card p {
+				margin-bottom: 0;
+				max-width: 60ch;
+			}
+			.contact-card .btn {
+				flex-shrink: 0;
 			}
 
 			@media (max-width: 768px) {
+				.contact-card {
+					flex-direction: column;
+					text-align: center;
+					padding: var(--s-8) var(--s-6);
+					gap: var(--s-6);
+				}
+				.contact-card-content {
+					text-align: center;
+				}
 				.about-grid {
 					grid-template-columns: 1fr;
 					gap: var(--s-8);

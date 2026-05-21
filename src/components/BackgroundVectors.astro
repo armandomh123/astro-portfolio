@@ -30,6 +30,7 @@
     let width: number, height: number;
     let particles: { x: number, y: number, vx: number, vy: number, radius: number }[] = [];
     let animationFrameId: number;
+    let isAnimating = true;
     
     const init = () => {
       width = window.innerWidth;
@@ -37,8 +38,11 @@
       canvas.width = width;
       canvas.height = height;
       
-      // Cantidad de partículas basada en el tamaño de la pantalla
-      const particleCount = Math.min(Math.floor(width * height / 12000), 100);
+      // Cantidad de partículas adaptada al dispositivo para mejor rendimiento
+      const particleCount = Math.min(
+        Math.floor(width * height / (width < 768 ? 24000 : 12000)),
+        width < 768 ? 40 : 100
+      );
       particles = [];
       
       for (let i = 0; i < particleCount; i++) {
@@ -70,6 +74,7 @@
     init();
     
     const animate = () => {
+      if (!isAnimating) return;
       ctx.clearRect(0, 0, width, height);
       
       // Color según el tema (negro en modo claro, blanco en modo oscuro)
@@ -113,18 +118,42 @@
       animationFrameId = requestAnimationFrame(animate);
     };
     
+    const startAnimation = () => {
+      if (!isAnimating) {
+        isAnimating = true;
+        animate();
+      }
+    };
+
+    const stopAnimation = () => {
+      isAnimating = false;
+      cancelAnimationFrame(animationFrameId);
+    };
+
     animate();
+
+    // Pausar animación cuando la pestaña está en segundo plano para ahorrar batería/CPU
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopAnimation();
+      } else {
+        startAnimation();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Limpiar evento en caso de SPA navigation (ej. Astro View Transitions)
     document.addEventListener('astro:before-swap', (e) => {
       const nextDoc = (e as any).detail.newDocument;
       if (!nextDoc || !nextDoc.getElementById('bg-vectors')) {
-        cancelAnimationFrame(animationFrameId);
+        stopAnimation();
         window.removeEventListener('resize', init);
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
         observer.disconnect();
       }
     });
   };
+
 
   // Inicializar al cargar
   initVectors();

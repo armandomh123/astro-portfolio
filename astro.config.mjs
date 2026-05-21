@@ -5,11 +5,15 @@ import sitemap from "@astrojs/sitemap";
 
 import cloudflare from "@astrojs/cloudflare";
 
-// https://astro.build/config
 export default defineConfig({
-	site: "https://astro-portfolio.ct2xmh.workers.dev/",
+	site: "https://astro-portfolio.ct2xmh.workers.dev",
 	integrations: [mdx(), sitemap()],
+	prefetch: {
+		prefetchAll: true,
+		defaultStrategy: "viewport",
+	},
 	adapter: cloudflare({
+		imageService: "compile",
 		platformProxy: {
 			enabled: true,
 		},
