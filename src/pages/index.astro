@@ -642,10 +642,16 @@ const projects = (await getCollection("projects")).sort(
 					gap: var(--s-8);
 				}
 				.hero-actions {
-					flex-direction: column;
+					flex-direction: row;
+					gap: var(--s-3);
 				}
 				.btn {
 					width: 100%;
+				}
+				.hero-actions .btn {
+					width: auto;
+					min-width: 135px;
+					padding: var(--s-3) var(--s-4);
 				}
 				.section {
 					padding-top: var(--s-12);

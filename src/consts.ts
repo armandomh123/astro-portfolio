@@ -16,6 +16,7 @@ export const NAV_ITEMS = [
 	{ label: "Inicio", href: "/#hero" },
 	{ label: "Sobre mí", href: "/#about" },
 	{ label: "Proyectos", href: "/#projects" },
+	{ label: "Experiencia", href: "/#experience" },
 	{ label: "Contacto", href: "/#contact" },
 ];
 
